@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Prajwal — A Brother's Album</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0b1220;
+      --navy-2: #121a2e;
+      --gold: #e8c872;
+      --gold-2: #f3de9b;
+      --cream: #f7f1e3;
+      --muted: #b8c0d4;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--navy);
+      color: var(--cream);
+      font-family: "Poppins", system-ui, sans-serif;
+      min-height: 100%;
+    }
+
+    body {
+      overflow-x: hidden;
+    }
+
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(232, 200, 114, 0.16), transparent 50%),
+        radial-gradient(900px 500px at 90% 0%, rgba(88, 120, 255, 0.12), transparent 45%),
+        linear-gradient(180deg, #0b1220 0%, #10182c 55%, #0b1220 100%);
+    }
+
+    .stars, .confetti {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 2;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 22px 80px;
+    }
+
+    header.hero {
+      text-align: center;
+      padding: 42px 12px 18px;
+    }
+
+    .eyebrow {
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      font-size: 12px;
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    h1 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(36px, 6vw, 72px);
+      line-height: 1.05;
+      margin: 12px 0 8px;
+    }
+
+    h1 span {
+      display: block;
+      font-family: "Great Vibes", cursive;
+      font-size: clamp(42px, 7vw, 84px);
+      color: var(--gold-2);
+      font-weight: 400;
+      margin-top: 4px;
+    }
+
+    .sub {
+      max-width: 560px;
+      margin: 10px auto 0;
+      color: var(--muted);
+      font-weight: 300;
+      font-size: 16px;
+    }
+
+    .featured {
+      margin: 36px auto 10px;
+      max-width: 420px;
+      position: relative;
+    }
+
+    .featured img {
+      width: 100%;
+      display: block;
+      border-radius: 18px;
+      box-shadow:
+        0 30px 80px rgba(0,0,0,0.45),
+        0 0 0 1px rgba(232,200,114,0.25);
+    }
+
+    .glow {
+      position: absolute;
+      inset: -18px;
+      background: radial-gradient(circle, rgba(232,200,114,0.22), transparent 65%);
+      z-index: -1;
+      filter: blur(8px);
+    }
+
+    section {
+      margin-top: 64px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .section-title h2 {
+      font-family: "Playfair Display", serif;
+      font-size: 32px;
+    }
+
+    .section-title p {
+      color: var(--muted);
+      margin-top: 6px;
+      font-weight: 300;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    @media (max-width: 860px) {
+      .gallery { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px) {
+      .gallery { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      border: 1px solid rgba(232,200,114,0.18);
+      border-radius: 18px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+    }
+
+    .card .photo {
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      background: #0a0f1c;
+    }
+
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .card:hover img { transform: scale(1.05); }
+
+    .card figcaption {
+      padding: 14px 16px 16px;
+    }
+
+    .card h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 300;
+    }
+
+    .wishes {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 700px) {
+      .wishes { grid-template-columns: 1fr; }
+    }
+
+    .wish {
+      padding: 22px 22px 20px;
+      border-radius: 16px;
+      background: rgba(18, 26, 46, 0.7);
+      border: 1px solid rgba(232,200,114,0.16);
+    }
+
+    .wish .quote {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-size: 20px;
+      line-height: 1.45;
+      margin-bottom: 12px;
+    }
+
+    .wish .from {
+      color: var(--gold);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 70px;
+      color: var(--muted);
+      font-weight: 300;
+    }
+
+    footer .script {
+      font-family: "Great Vibes", cursive;
+      font-size: 36px;
+      color: var(--gold-2);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .lb {
+      position: fixed;
+      inset: 0;
+      background: rgba(5,8,16,0.88);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      padding: 24px;
+    }
+    .lb.open { display: flex; }
+    .lb img {
+      max-width: min(92vw, 720px);
+      max-height: 86vh;
+      border-radius: 14px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    }
+    .lb button {
+      position: absolute;
+      top: 18px;
+      right: 22px;
+      background: transparent;
+      border: 0;
+      color: white;
+      font-size: 32px;
+      cursor: pointer;
+    }
+
+    .dot {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #fff;
+      border-radius: 50%;
+      opacity: 0.35;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="stars" id="stars"></div>
+  <canvas class="confetti" id="confetti"></canvas>
+
+  <div class="wrap">
+    <header class="hero">
+      <div class="eyebrow">A little album of memories</div>
+      <h1>Happy Birthdaymy brother
+        <span>Prajwal</span>
+      </h1>
+      <p class="sub">From one brother to another — a few photos, a few wishes, and a whole lot of love.</p>
+
+      <div class="featured">
+        <div class="glow"></div>
+        <img src="https://i.ibb.co/FLxfpftW/1789664383117.png" alt="Happy Birthday Prajwal poster" />
+      </div>
+    </header>
+
+    <section>
+      <div class="section-title">
+        <h2>Our photos</h2>
+        <p>Growing up side by side. These moments are the real gift.</p>
+      </div>
+
+      <div class="gallery">
+        <figure class="card" data-full="https://i.ibb.co/3ypSxkfW/IMG-20260917-WA0064.jpg">
+          <div class="photo">
+            <img src="https://i.ibb.co/3ypSxkfW/IMG-20260917-WA0064.jpg" alt="Brothers by the carved door" />
+          </div>
+          <figcaption>
+            <h3>Standing tall</h3>
+            <p>Same door, same bond — just a little older every year.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="card" data-full="https://i.ibb.co/RqyynZY/IMG-20260225-WA0072.jpg">
+          <div class="photo">
+            <img src="https://i.ibb.co/RqyynZY/IMG-20260225-WA0072.jpg" alt="Two brothers sitting outside" />
+          </div>
+          <figcaption>
+            <h3>Everyday magic</h3>
+            <p>Not a studio. Not a stage. Just us, and a quiet afternoon.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="card" data-full="https://i.ibb.co/k6gKYPBS/IMG-20260225-WA0109.jpg">
+          <div class="photo">
+            <img src="https://i.ibb.co/k6gKYPBS/IMG-20260225-WA0109.jpg" alt="Younger brothers posing together" />
+          </div>
+          <figcaption>
+            <h3>Little legends</h3>
+            <p>The matching shirts era. Best teammates from day one.</p>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">
+        <h2>Birthday wishes</h2>
+        <p>Simple words. Big heart.</p>
+      </div>
+
+      <div class="wishes">
+        <article class="wish">
+          <p class="quote">“Happy birthday, annaya. May this year be kinder, brighter, and full of the wins you have been working for.”</p>
+          <p class="from">With love</p>
+        </article>
+        <article class="wish">
+          <p class="quote">“Thank you for being my partner in every silly plan and every serious moment. The world is better with you in it.”</p>
+          <p class="from">Your brother; Pranay</p>
+        </article>
+        <article class="wish">
+          <p class="quote">“Stay curious. Stay brave. Stay the person who makes our home louder and warmer.”</p>
+          <p class="from">A wish for the year ahead</p>
+        </article>
+        <article class="wish">
+          <p class="quote">“We grew up in the same photos. Now we get to grow into even better versions of ourselves — together.”</p>
+          <p class="from">Always your teammate</p>
+        </article>
+      </div>
+    </section>
+
+    <footer>
+      <span class="script">Make a wish brother, Prajwal</span>
+      Another trip around the sun. Another chapter. I am proud of you.
+    </footer>
+  </div>
+
+  <div class="lb" id="lb">
+    <button type="button" aria-label="Close">&times;</button>
+    <img alt="Full size photo" />
+  </div>
+
+  <script>
+    const stars = document.getElementById("stars");
+    for (let i = 0; i < 70; i++) {
+      const d = document.createElement("div");
+      d.className = "dot";
+      d.style.left = Math.random() * 100 + "%";
+      d.style.top = Math.random() * 100 + "%";
+      d.style.opacity = 0.15 + Math.random() * 0.4;
+      d.style.transform = "scale(" + (0.6 + Math.random() * 1.8) + ")";
+      stars.appendChild(d);
+    }
+
+    const lb = document.getElementById("lb");
+    const lbImg = lb.querySelector("img");
+    document.querySelectorAll(".card").forEach(card => {
+      card.addEventListener("click", () => {
+        lbImg.src = card.dataset.full;
+        lb.classList.add("open");
+      });
+    });
+    lb.querySelector("button").addEventListener("click", () => lb.classList.remove("open"));
+    lb.addEventListener("click", (e) => { if (e.target === lb) lb.classList.remove("open"); });
+
+    const canvas = document.getElementById("confetti");
+    const ctx = canvas.getContext("2d");
+    let w, h, pieces = [];
+    function resize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resize);
+    resize();
+
+    const colors = ["#e8c872", "#f3de9b", "#ffffff", "#8fb3ff", "#ffd6e7"];
+    function spawn() {
+      pieces.push({
+        x: Math.random() * w,
+        y: -10,
+        r: 2 + Math.random() * 4,
+        s: 0.6 + Math.random() * 1.4,
+        a: Math.random() * Math.PI,
+        c: colors[Math.floor(Math.random() * colors.length)]
+      });
+    }
+    for (let i = 0; i < 50; i++) spawn();
+
+    function tick() {
+      ctx.clearRect(0, 0, w, h);
+      pieces.forEach(p => {
+        p.y += p.s;
+        p.x += Math.sin(p.a += 0.02) * 0.4;
+        if (p.y > h + 10) { p.y = -10; p.x = Math.random() * w; }
+        ctx.fillStyle = p.c;
+        ctx.globalAlpha = 0.55;
+        ctx.fillRect(p.x, p.y, p.r, p.r * 0.6);
+      });
+      requestAnimationFrame(tick);
+    }
+    tick();
+  </script>
+</body>
+</html>
